@@ -7,6 +7,8 @@ void saxpy(int n, float a, float *x, float *y)
   if (i < n) y[i] = a*x[i] + y[i];
 }
 
+// Commented version
+
 int main(void)
 {
   int N = 1<<20;
@@ -28,7 +30,8 @@ int main(void)
   // Perform SAXPY on 1M elements
   printf("Before kernel starts \n");
   saxpy<<<(N+255)/256, 256>>>(N, 3.1f, d_x, d_y);
-printf("After kernel ran \n");
+  printf("After kernel ran \n");
+  
   cudaMemcpy(y, d_y, N*sizeof(float), cudaMemcpyDeviceToHost);
 
   float maxError = 0.0f;
